@@ -1,0 +1,87 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNxBJqQ7D4WQShf7xrld8Om",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/matheussdias84-tech/astar-romenia/blob/main/map_py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# -*- coding: utf-8 -*-\n",
+        "# mapa.py — os DADOS do problema (Fase 1)\n",
+        "#\n",
+        "# Mapa rodoviário da Romênia (Figura 3.2 do Russell & Norvig) e a heurística\n",
+        "# h(n) = distância em linha reta até Bucareste (Figura 3.22).\n",
+        "# Este arquivo só guarda dados: ele não imprime nada quando é executado.\n",
+        "# Os outros arquivos do projeto fazem \"from mapa import ...\" para usá-los.\n",
+        "\n",
+        " # ----- PASSO 1: o mapa como um dicionário -----\n",
+        "# Chave = nome da cidade (texto)\n",
+        "# Valor = lista de tuplas (vizinho, custo da estrada em km)\n",
+        "\n",
+        "mapa_romenia = {\n",
+        "'Arad': [('Zerind', 75), ('Sibiu', 140), ('Timisoara', 118)],\n",
+        "'Zerind': [('Arad', 75), ('Oradea', 71)],\n",
+        "'Oradea': [('Zerind', 71), ('Sibiu', 151)],\n",
+        "'Sibiu': [('Arad', 140), ('Oradea', 151), ('Fagaras', 99),\n",
+        "('Rimnicu Vilcea', 80)],\n",
+        "'Timisoara': [('Arad', 118), ('Lugoj', 111)],\n",
+        "'Lugoj': [('Timisoara', 111), ('Mehadia', 70)],\n",
+        " 'Mehadia': [('Lugoj', 70), ('Drobeta', 75)],\n",
+        "'Drobeta': [('Mehadia', 75), ('Craiova', 120)],\n",
+        " 'Craiova': [('Drobeta', 120), ('Rimnicu Vilcea', 146), ('Pitesti', 138)],\n",
+        "'Rimnicu Vilcea': [('Sibiu', 80), ('Craiova', 146), ('Pitesti', 97)],\n",
+        "'Fagaras': [('Sibiu', 99), ('Bucharest', 211)],\n",
+        " 'Pitesti': [('Rimnicu Vilcea', 97), ('Craiova', 138), ('Bucharest', 101)],\n",
+        " 'Bucharest': [('Fagaras', 211), ('Pitesti', 101), ('Giurgiu', 90),\n",
+        " ('Urziceni', 85)],\n",
+        " 'Giurgiu': [('Bucharest', 90)],\n",
+        " 'Urziceni': [('Bucharest', 85), ('Vaslui', 142), ('Hirsova', 98)],\n",
+        " 'Hirsova': [('Urziceni', 98), ('Eforie', 86)],\n",
+        " 'Eforie': [('Hirsova', 86)],\n",
+        " 'Vaslui': [('Urziceni', 142), ('Iasi', 92)],\n",
+        " 'Iasi': [('Vaslui', 92), ('Neamt', 87)],\n",
+        " 'Neamt': [('Iasi', 87)],\n",
+        " }\n",
+        "\n",
+        " # ----- PASSO 2: a heurística como outro dicionário -----\n",
+        "# Chave = cidade, Valor = distância em linha reta (km) daquela cidade até Bucareste\n",
+        "heuristica_bucareste = {\n",
+        "'Arad': 366, 'Bucharest': 0, 'Craiova': 160, 'Drobeta': 242, 'Eforie': 161,\n",
+        "'Fagaras': 176, 'Giurgiu': 77, 'Hirsova': 151, 'Iasi': 226, 'Lugoj': 244,\n",
+        " 'Mehadia': 241, 'Neamt': 234, 'Oradea': 380, 'Pitesti': 100,\n",
+        " 'Rimnicu Vilcea': 193, 'Sibiu': 253, 'Timisoara': 329, 'Urziceni': 80,\n",
+        "'Vaslui': 199, 'Zerind': 374,\n",
+        " }\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "3Ih1oKD8DZ8a"
+      },
+      "execution_count": 3,
+      "outputs": []
+    }
+  ]
+}
